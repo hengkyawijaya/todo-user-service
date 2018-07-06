@@ -24,7 +24,7 @@ module.exports = {
   },
   findOne: async (data, req, res, next) => {
     const { id } = req.params;
-    console.log(data);
+    
     try {
       const theUser = await User.findById(id);
 
