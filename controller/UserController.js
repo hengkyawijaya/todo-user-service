@@ -22,12 +22,13 @@ module.exports = {
       res.send(err)
     }
   },
-  async findOne(req, res){
+  async findOne({ auth }, req, res){
     const { id } = req.params;
     try {
       const theUser = await User.findById(id);
 
       res.send({
+        auth,
         data: {
           user: theUser,
         },
