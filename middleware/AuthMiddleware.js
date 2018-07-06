@@ -9,8 +9,10 @@ module.exports = async (req, res, next) => {
       }
     });
 
+    console.log(theUser);
+
     return next({
-      auth: theUser.data
+      auth: theUser.data.data.user
     })
   } catch(err) {
     res.send(err)
