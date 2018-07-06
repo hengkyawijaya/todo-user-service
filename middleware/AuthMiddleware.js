@@ -9,13 +9,11 @@ module.exports = async (req, res, next) => {
         "Content-Type":"application/json"
       }
     });
-
-   // console.log(theUser.data);
-
+    console.log(theUser.data);
     next(theUser.data)
    
   } catch(err) {
-  
+    console.log(err.response);
     res.status(err.response.data.status.code).send(err.response.data)
   }
 }
