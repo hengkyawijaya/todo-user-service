@@ -3,7 +3,7 @@ const axios = require("axios");
 module.exports = async (req, res, next) => {
   const { authorization=null } = req.headers
   try {
-    const theUser = await axios.get("http://todo-auth-services:8001/auth/check", {
+    const theUser = await axios.get("http://todo-auth-service:8001/auth/check", {
       headers : {
         authorization,
         "Content-Type":"application/json"
