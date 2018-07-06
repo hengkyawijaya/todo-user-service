@@ -1,7 +1,7 @@
 const { User } = require("../model")
 
 module.exports = {
-  async find(req, res){
+   find: async(req, res, next) => {
     const { page=1, limit=10, searchBy='type', search='', orderBy='updatedAt', order='desc', filter  } = req.query;
     try {
       const theUser = await User.paginate({}, { page, limit});
@@ -22,13 +22,13 @@ module.exports = {
       res.send(err)
     }
   },
-  async findOne({ auth }, req, res){
+  findOne: async (data, req, res, next) => {
     const { id } = req.params;
+    console.log(data);
     try {
       const theUser = await User.findById(id);
 
       res.send({
-        auth,
         data: {
           user: theUser,
         },
@@ -42,7 +42,7 @@ module.exports = {
       res.send(err)
     }
   },
-  async create(req, res){
+  create: async(req, res, next) => {
     const { user } = req.body;
     try {
       const theUser = await new User(user).save();
@@ -62,7 +62,7 @@ module.exports = {
       res.send(err)
     }
   },
-  async update(req, res){
+  update: async (req, res, next) => {
     const { id } = req.params;
     const { user } = req.body;
 
@@ -83,7 +83,7 @@ module.exports = {
       res.send(err)
     }
   },
-  async destroy(req, res){
+  destroy: async (req, res, next) =>{
     const { id } = req.params;
     try {
       const theUser = await User.remove({ id });

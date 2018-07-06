@@ -1,18 +1,21 @@
 const axios = require("axios");
 
 module.exports = async (req, res, next) => {
-  const { authorization } = req.headers
+  const { authorization=null } = req.headers
   try {
-    const theUser = await axios.get("http://todo-auth-service:8001/auth/check", {
+    const theUser = await axios.get("http://todo-auth-services:8001/auth/check", {
       headers : {
-        authorization
+        authorization,
+        "Content-Type":"application/json"
       }
     });
 
-    return next({
-      auth: theUser.data
-    })
+   // console.log(theUser.data);
+
+    next(theUser.data)
+   
   } catch(err) {
-    res.send(err)
+  
+    res.status(err.response.data.status.code).send(err.response.data)
   }
 }
