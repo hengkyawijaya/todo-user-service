@@ -1,7 +1,7 @@
 const { User } = require("../model")
 
 module.exports = {
-   find: async(req, res, next) => {
+   find: async(data, req, res, next) => {
     const { page=1, limit=10, searchBy='type', search='', orderBy='updatedAt', order='desc', filter  } = req.query;
     try {
       const theUser = await User.paginate({}, { page, limit});
@@ -62,7 +62,7 @@ module.exports = {
       res.send(err)
     }
   },
-  update: async (req, res, next) => {
+  update: async (data, req, res, next) => {
     const { id } = req.params;
     const { user } = req.body;
 
@@ -83,7 +83,7 @@ module.exports = {
       res.send(err)
     }
   },
-  destroy: async (req, res, next) =>{
+  destroy: async (data, req, res, next) =>{
     const { id } = req.params;
     try {
       const theUser = await User.remove({ id });
